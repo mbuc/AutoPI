@@ -16,7 +16,7 @@ class OBD_Capture():
 
     def connect(self):
         portnames = scanSerial()
-	print "Available ports: " + portnames
+#	print "Available ports: " + portnames
         for port in portnames:
             self.port = obd_io.OBDPort(port, None, 2, 2)
             if(self.port.State == 0):
@@ -31,6 +31,12 @@ class OBD_Capture():
     def is_connected(self):
         return self.port
         
+    def get_value(self, pid):
+        (name, value, unit) = self.port.sensor(pid)
+        print "Test code: Requesting value for PID " + str(pid)
+        print name + " = " + str(value) + " " + str(unit)
+        return (name, value, unit)
+
     def capture_data(self):
 
         #Find supported sensors - by getting PIDs from OBD
