@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="Media Buttons">
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-playback-pause.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-playback-stop.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-seek-backward.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-seek-forward.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-skip-backward.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-skip-forward.ico</file>
+    <file>Oxygen-Icons.org-Oxygen-Actions-media-playback-start.ico</file>
+  </qresource>
+</RCC>

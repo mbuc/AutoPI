@@ -1,0 +1,20 @@
+from PyQt4 import QtGui, QtCore
+from AutoPi import Ui_AutoPi
+
+class AutoPi(Ui_AutoPi):
+    def __init__(self):
+        Ui_AutoPi.__init__(self)
+        #self.buttonCalc.clicked.connect(self.handleCalculate)
+    #def handleCalculate(self):
+    #    x = int(self.lineEditX.text())
+    #    y = int(self.lineEditY.text())
+    #    self.LineEditZ.setText(str(x + y))*/
+
+if __name__ == '__main__':
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    #AutoPi = QtGui.QMainWindow()
+    ui = AutoPi()
+    ui.setupUi(AutoPi)
+    AutoPi.show()
+    sys.exit(app.exec_())
