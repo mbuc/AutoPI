@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import time
-import pygame
+import os
+#import pygame
 #import RPi.GPIO as GPIO
 
 from obd_capture import OBD_Capture
@@ -15,6 +16,8 @@ freq = 100 #Hz
 
 playing = 0
 paused  = 0
+
+lastVol = 0
 
 #GPIO.setup(red, GPIO.OUT)
 #GPIO.setup(green, GPIO.OUT)
@@ -38,14 +41,17 @@ class WorkThread(QtCore.QThread):
                 vol = 1
 
             if playing:
-                pygame.mixer.music.set_volume(vol)
-                time.sleep(1)
+                if lastVol != vol:
+                    #pygame.mixer.music.set_volume(vol)
+                    os.system("cmus-remote -v " +  int(vol*100) + "%")
+                    lastVol = vol
+                    time.sleep(1)
 
             (name, value, unit) = obd.get_value(0x0D)
             ui.lcdNumberMPH.display(value)
 #            vol = int(value/60)
 #            pygame.mixer.music.set_volume(vol)
-            time.sleep(0.5)
+            time.sleep(1)
         return
 
 class AutoPi(Ui_AutoPi):
@@ -59,19 +65,22 @@ class AutoPi(Ui_AutoPi):
         self.pushButton_Play.clicked.connect(self.handlePlay)
     def handlePlay(self):
         if playing:
-            pygame.mixer.music.pause
+            #pygame.mixer.music.pause
+            os.system("cmus-remote -u")
             playing = 0
             paused = 1
         elif paused:
-            pygame.mixer.music.unpause
+            #pygame.mixer.music.unpause
+            os.system("cmus-remote -u")
             playing = 1
             paused = 0
         else:
-            pygame.mixer.music.play()
+            #pygame.mixer.music.play()
+            os.system("cmus-remote -f RapGod.mp3")
             playing = 1
         return
     def handlePause(self):
-        pygame.music.pause()
+        #pygame.music.pause()
         return
 
 if __name__ == '__main__':
@@ -86,8 +95,8 @@ if __name__ == '__main__':
     AutoPi.show()
 
 #init pygame
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/mysong.mp3")
+#    pygame.mixer.init()
+#    pygame.mixer.music.load("/home/pi/mysong.ogg")
 
     print "Attempting to start OBD_Capture()"
     obd = OBD_Capture()
